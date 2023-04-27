@@ -1,5 +1,4 @@
 import httpStatus from "http-status";
-import faker from '@faker-js/faker';
 import supertest from "supertest";
 import { cleanDb } from "../helpers";
 import app from "app";
@@ -72,5 +71,12 @@ describe('POST /consoles', () => {
         
         expect(response.status).toEqual(httpStatus.CONFLICT);
     });
+
+    it('should respond with status 201 if console is posted', async () => {
+        const body = await consoleBody();
+        const response = await server.post('/consoles').send(body);
+
+        expect(response.status).toEqual(httpStatus.CREATED);
+    })
 
 });
